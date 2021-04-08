@@ -23,6 +23,8 @@ public class Book {
         this.price = price;
     }
 
+    //methods
+
 
     @Override
     public String toString() {

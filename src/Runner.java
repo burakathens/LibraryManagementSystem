@@ -5,11 +5,22 @@ public class Runner {
     public ArrayList<Book> bookList=new ArrayList<>();
     public static void main(String[] args) {
     Runner runner=new Runner();
+    Book book1=new Book("Veba Geceleri","Orhan PAMUK",2021,22,1001+Book.syc);
+    runner.bookList.add(Book.syc,book1);
+    Book.syc++;
+    Book book2=new Book("Körlük","Jose SARAMAGO",2019,27,1001+Book.syc);
+    runner.bookList.add(Book.syc,book2);
+    Book.syc++;
+    Book book3=new Book("1984","George ORWELL",1984,22,1001+Book.syc);
+    runner.bookList.add(Book.syc,book3);
+    Book.syc++;
+
     runner.ShowMenu();
     }
 
     //methods
     public void AddBook(){
+
         Scanner scanner=new Scanner(System.in);
         System.out.println("Please type book's name: ");
         String name=scanner.nextLine();
@@ -29,13 +40,52 @@ public class Runner {
 
     }
     public void DelBook(){
+        Scanner scan1=new Scanner(System.in);
+        System.out.println("Please type BookNo to delete: ");
+        if(bookList.size()==0){
+            System.out.println("There's no book to delete! ");
+            System.exit(0);
+        }
+        int a=scan1.nextInt();
+        for(Book b:bookList){
+            if(b.bookNo==a){
+                bookList.remove(b);
+                System.out.println("Book is removed from Library...\n");
+              ListBook();
+                break;
+            }
+        }
 
     }
     public void SearchBook(){
+        System.out.println("Please type Book No: ");
+        Scanner scan2=new Scanner(System.in);
+        int t=scan2.nextInt();
+        int t2;
+        for(Book b:bookList){
+            if(b.bookNo==t){
+                t2=bookList.indexOf(b);
+                System.out.println("Book is found in Library...");
+                System.out.println("1- " +
+                        b.bookName+" by " +b.authorName+" ("+b.year+") "+"$"+b.price);
+                System.out.println("");
+
+                break;
+            }
+        }
 
     }
     public void ListBook(){
+        System.out.println("Available Books in Library: ");
+        System.out.println("---------------------------------------------------");
 
+        for (Book b:bookList){
+            System.out.println((bookList.indexOf(b)+1)+"- " +
+                    b.bookName+" by " +b.authorName+" ("+b.year+") "+"$"+b.price+" BN:"+b.bookNo);
+        }
+        System.out.println("---------------------------------------------------");
+        System.out.println("             \"BN\" shows Book No");
+        System.out.println("---------------------------------------------------\n");
     }
     public void ShowMenu(){
         String console="========= BOOK APPLICATION =========\n" +
@@ -43,7 +93,8 @@ public class Runner {
                       "2: Delete Book with no\n" +
                       "3: Search Book with no\n" +
                       "4: List All Books\n" +
-                      "5: Finish\n";
+                      "5: Exit\n" +
+                       "====================================";
 
         Scanner scan=new Scanner(System.in);
         int put;
@@ -73,13 +124,11 @@ public class Runner {
             }
         }while (put!=5);
             {
-                for (Book b:bookList){
-                    System.out.println(b);
-                }
-
                 System.out.println("Thanks for using BookApp !");
             }
+            scan.close();
 
 
     }
+
 }
